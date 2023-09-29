@@ -2,6 +2,7 @@
 
 namespace CsvHeaderToClassParserConsole.Services;
 
+// TODO: Move to Orbital7.Extensions.
 public class CsvHeaderToClassParser
 {
     public string ParseCsvHeaderToClass(
@@ -72,6 +73,7 @@ public class CsvHeaderToClassParser
     {
         var variable = headerName
             .Replace("\"", "")
+            .Replace("'", "")
             .Replace(":", "_")
             .Replace(" ", "_")
             .Replace("?", "_")
@@ -91,7 +93,6 @@ public class CsvHeaderToClassParser
             .Replace("&", "_")
             .Replace("=", "_")
             .Replace("~", "_")
-            .Replace("'", "_")
             .Replace("`", "_")
             .Replace("<", "_")
             .Replace(">", "_")
