@@ -27,5 +27,18 @@ internal class Program
         var parser = new CsvHeaderToClassParser();
         var classContents = parser.ParseCsvHeaderToClass(csvHeader, classNamespace, className);
         File.WriteAllText(classFilePath.Replace("{className}", className), classContents);
+
+
+        /*
+         * Here's an example usage of how you would use the resulting class to read in
+         * a CSV file using CSVHelper:
+         * 
+			List<MyClassNameModel> models = null;
+			using (var reader = new StringReader(File.ReadAllText("c:/temp/myfile.csv")))
+			using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture) { HasHeaderRecord = true }))
+			{
+				models = csv.GetRecords<MyClassNameModel>().ToList();
+			}
+         */
     }
 }
