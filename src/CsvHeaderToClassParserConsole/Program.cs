@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-
-namespace CsvHeaderToClassParserConsole;
+﻿namespace CsvHeaderToClassParserConsole;
 
 internal class Program
 {
