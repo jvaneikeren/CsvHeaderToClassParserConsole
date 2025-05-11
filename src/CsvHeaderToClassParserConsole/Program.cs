@@ -1,4 +1,6 @@
-﻿namespace CsvHeaderToClassParserConsole;
+﻿using Orbital7.Extensions;
+
+namespace CsvHeaderToClassParserConsole;
 
 internal class Program
 {
@@ -16,20 +18,22 @@ internal class Program
         var config = ConfigurationHelper.GetConfigurationWithUserSecrets<Config, Program>();
 
         // Read in the variables; use command line args if provided, else use the local configuration.
-        string csvHeader = useArgs ? args[0] : config.CsvHeader;
-        string classNamespace = useArgs ? args[1] : config.ClassNamespace;
-        string className = useArgs ? args[2] : config.ClassName;
-        string classFilePath = useArgs ? args[3] : config.ClassFilePath;
+        string csvHeader = useArgs ? args[0] : config.CsvHeader ?? throw new ArgumentNullException(nameof(csvHeader));
+        string classNamespace = useArgs ? args[1] : config.ClassNamespace ?? throw new ArgumentNullException(nameof(classNamespace)); ;
+        string className = useArgs ? args[2] : config.ClassName ?? throw new ArgumentNullException(nameof(className)); ;
+        string classFilePath = useArgs ? args[3] : config.ClassFilePath ?? throw new ArgumentNullException(nameof(classFilePath)); ;
 
-        // Parse the header and create the class.
-        var parser = new CsvHeaderToClassParser();
-        var classContents = parser.ParseCsvHeaderToClass(csvHeader, classNamespace, className);
-        File.WriteAllText(classFilePath.Replace("{className}", className), classContents);
-
+        // Build write the class file from the CSV header.
+        var builder = new CsvModelClassBuilder();
+        builder.WriteClassFileFromCsvHeader(
+            csvHeader, 
+            classNamespace, 
+            className,
+            classFilePath.Replace("{className}", className));
 
         /*
          * Here's an example usage of how you would use the resulting class to read in
-         * a CSV file using CSVHelper:
+         * a CSV file using the CSVHelper package:
          * 
 			List<MyClassNameModel> models = null;
 			using (var reader = new StringReader(File.ReadAllText("c:/temp/myfile.csv")))
@@ -37,6 +41,13 @@ internal class Program
 			{
 				models = csv.GetRecords<MyClassNameModel>().ToList();
 			}
+         *
+         *
+         *  OR using the Orbital7.Extensions package:
+         *  
+            List<MyClassNameModel> models = ParsingHelper.ParseCsvFileToModels<MyClassNameModel>(
+                "c:/temp/myfile.csv",
+                hasColumnHeadersRow = true);
          */
     }
 }

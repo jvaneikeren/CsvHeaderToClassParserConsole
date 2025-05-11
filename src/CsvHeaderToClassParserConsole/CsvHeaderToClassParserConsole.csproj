@@ -5,12 +5,12 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
 	<LangVersion>latest</LangVersion>
-    <Nullable>disable</Nullable>
+    <Nullable>enable</Nullable>
     <UserSecretsId>540c1371-4ab8-4d89-936f-c784e380aabf</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Orbital7.Extensions" Version="9.0.7" />
+    <PackageReference Include="Orbital7.Extensions" Version="9.0.14" />
   </ItemGroup>
 
 </Project>
