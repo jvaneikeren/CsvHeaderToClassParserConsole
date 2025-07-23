@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Orbital7.Extensions" Version="9.0.14" />
+    <PackageReference Include="Orbital7.Extensions" Version="9.0.21" />
   </ItemGroup>
 
 </Project>
